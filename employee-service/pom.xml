@@ -8,11 +8,11 @@
 		<version>2.7.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>project</groupId>
+	<groupId>net.javaguides</groupId>
 	<artifactId>employee-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>employee-service</name>
-	<description>Spring boot project department-service</description>
+	<description>Spring Boot project as employee-service</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
