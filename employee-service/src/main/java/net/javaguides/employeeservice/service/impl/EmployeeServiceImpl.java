@@ -22,7 +22,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
 
-    private RestTemplate restTemplate;
 
 
     @Override
@@ -43,11 +42,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         LOGGER.info("inside getEmployeeById() method");
         Employee employee = employeeRepository.findById(employeeId).get();
 
-        ResponseEntity<DepartmentDto> departmentDtoResponseEntity= restTemplate.getForEntity("http://localhost:8081/api/departments/" + employee.getDepartmentCode(), DepartmentDto.class);
-
         return APIResponseDto.builder()
                 .employee(EmployeeMapper.mapToEmployeeDto(employee))
-                .department(departmentDtoResponseEntity.getBody())
                 .build();
     }
 
