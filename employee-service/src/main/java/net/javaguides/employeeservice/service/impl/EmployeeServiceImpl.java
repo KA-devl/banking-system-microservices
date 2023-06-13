@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @AllArgsConstructor
@@ -22,6 +23,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
 
+    private WebClient webClient;
 
 
     @Override
@@ -42,8 +44,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         LOGGER.info("inside getEmployeeById() method");
         Employee employee = employeeRepository.findById(employeeId).get();
 
+       DepartmentDto departmentDto = webClient.get().uri("http://localhost:8081/api/departments/" + employee.getDepartmentCode())
+                .retrieve()
+                .bodyToMono(DepartmentDto.class)
+                .block();
+
         return APIResponseDto.builder()
                 .employee(EmployeeMapper.mapToEmployeeDto(employee))
+                .department(departmentDto)
                 .build();
     }
 
