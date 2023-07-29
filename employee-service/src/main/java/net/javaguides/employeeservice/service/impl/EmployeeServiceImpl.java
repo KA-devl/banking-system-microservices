@@ -11,10 +11,7 @@ import net.javaguides.employeeservice.service.APIClient;
 import net.javaguides.employeeservice.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @AllArgsConstructor
@@ -51,6 +48,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 //                .retrieve()
 //                .bodyToMono(DepartmentDto.class)
 //                .block();
+        if(employee.getDepartmentCode() == null){
+            throw new RuntimeException("Department Code is null");
+        }
         DepartmentDto departmentDto = apiClient.getDepartmentByCode(employee.getDepartmentCode()).getBody();
         return APIResponseDto.builder()
                 .employee(EmployeeMapper.mapToEmployeeDto(employee))
