@@ -1,5 +1,6 @@
 package net.javaguides.employeeservice.service.impl;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.AllArgsConstructor;
 import net.javaguides.employeeservice.dto.APIResponseDto;
 import net.javaguides.employeeservice.dto.DepartmentDto;
@@ -12,6 +13,8 @@ import net.javaguides.employeeservice.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -38,6 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return savedEmployeeDto;
     }
 
+    @CircuitBreaker(name = "${spring.application.name}", fallbackMethod = "getDefaultDepartment")
     @Override
     public APIResponseDto getEmployeeById(Long employeeId) {
 
@@ -55,6 +59,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         return APIResponseDto.builder()
                 .employee(EmployeeMapper.mapToEmployeeDto(employee))
                 .department(departmentDto)
+                .build();
+    }
+    public APIResponseDto getDefaultDepartment(Long employeeId, Exception exception) {
+        LOGGER.info("Inside getDefaultDepartment() method");
+        Employee employee = employeeRepository.findById(employeeId).get();
+
+        DepartmentDto departmentDto = new DepartmentDto();
+        departmentDto.setDepartmentCode("H1S2ZX");
+        departmentDto.setDepartmentName("Fallback department");
+        departmentDto.setDepartmentDescription("This is a fallback department as a response to when department service is down");
+
+        return APIResponseDto.builder()
+                .department(departmentDto)
+                .employee(EmployeeMapper.mapToEmployeeDto(employee))
                 .build();
     }
 
