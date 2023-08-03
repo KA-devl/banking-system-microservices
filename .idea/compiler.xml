@@ -9,7 +9,9 @@
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
         <module name="config-server" />
+        <module name="organization-service" />
         <module name="department-service" />
+        <module name="service-registry" />
         <module name="employee-service" />
       </profile>
     </annotationProcessing>
@@ -30,6 +32,7 @@
       <module name="department-service (1)" options="-parameters" />
       <module name="department-service (2)" options="-parameters" />
       <module name="employee-service" options="-parameters" />
+      <module name="organization-service" options="-parameters" />
       <module name="service-registry" options="-parameters" />
       <module name="service-registry (1)" options="-parameters" />
       <module name="service-registry (2)" options="-parameters" />
