@@ -14,8 +14,9 @@ public class OrganizationDto {
     private String organizationCode;
     private String organizationDescription;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    private static Organization toEntity(OrganizationDto organizationDto) {
+    public static Organization toEntity(OrganizationDto organizationDto) {
         return Organization.builder()
                 .organizationName(organizationDto.organizationName)
                 .organizationCode(organizationDto.organizationCode)
@@ -23,12 +24,13 @@ public class OrganizationDto {
                 .build();
     }
 
-    private static OrganizationDto fromEntity(Organization organization) {
+    public static OrganizationDto fromEntity(Organization organization) {
         return OrganizationDto.builder()
                 .organizationName(organization.getOrganizationName())
                 .organizationCode(organization.getOrganizationCode())
                 .organizationDescription(organization.getOrganizationDescription())
                 .createdAt(organization.getCreatedAt())
+                .updatedAt(organization.getUpdatedAt())
                 .build();
     }
 }
