@@ -17,13 +17,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
-@MappedSuperclass
 public class Organization {
     @Id
     @GeneratedValue(generator = "increment")
     private Long id;
     private String organizationName;
     private String organizationDescription;
+    @Column(nullable = false, unique = true)
     private String organizationCode;
     @CreatedDate
     private LocalDateTime createdAt;
