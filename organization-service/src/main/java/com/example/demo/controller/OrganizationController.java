@@ -8,14 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/api/organization")
+@RequestMapping("/api/organizations")
 @RequiredArgsConstructor
 public class OrganizationController {
 
     private final OrganizationService organizationService;
 
-    @GetMapping("/{organization-code}")
-    public ResponseEntity<OrganizationDto> findByOrganizationCode(@PathVariable("organization-code") String organizationCode) {
+    @GetMapping("/{organizationCode}")
+    public ResponseEntity<OrganizationDto> findByOrganizationCode(@PathVariable("organizationCode") String organizationCode) {
         return ResponseEntity.ok(organizationService.findByOrganizationCode(organizationCode));
     }
 
