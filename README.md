@@ -10,3 +10,4 @@
 
 
 
+![System design](https://github.com/KA-devl/micro-services-example/assets/83729449/ffeaa31e-2057-4f42-8995-2fc553bde08d)
